@@ -21,7 +21,7 @@ h1{font:400 clamp(45px,5vw,76px)/.95 Georgia,serif;margin:22px 0 4px}.script{fon
 section{padding:85px 0}.center{text-align:center}.title{font:400 clamp(35px,4vw,52px) Georgia,serif;margin:13px 0}.sub{color:#888;font-size:10px;letter-spacing:.3em;text-transform:uppercase}
 .products{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:45px}.photo{aspect-ratio:4/5;overflow:hidden;background:#111;border:1px solid #222}.photo img{width:100%;height:100%;object-fit:cover;transition:.4s}.card:hover img{transform:scale(1.03)}
 .card h3{font:400 17px Georgia,serif;margin:14px 0 7px}.price{margin-bottom:11px}select,.add{width:100%;background:#070707;color:white;border:1px solid #555;padding:11px;font-size:11px}.add{margin-top:7px;cursor:pointer;text-transform:uppercase;letter-spacing:.12em}.add:hover{background:white;color:black}
-.story{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.story img{width:100%;height:100%;min-height:420px;object-fit:cover;filter:grayscale(.7)}.story-copy{padding:65px}.story-copy h2{font:400 43px Georgia,serif}.story-copy p{color:#999;line-height:1.9}
+.story{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.story img{width:100%;height:100%;min-height:420px;object-fit:cover;filter:grayscale(.7)}.presentation-video{min-height:420px;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}.presentation-video video{display:block;width:100%;height:100%;max-height:620px;object-fit:contain;background:#000}.story-copy{padding:65px}.story-copy h2{font:400 43px Georgia,serif}.story-copy p{color:#999;line-height:1.9}
 .cta{text-align:center;background:#090909}.cta h2{font:400 45px Georgia,serif}
 footer{padding:45px 0;color:#999;font-size:11px;border-top:1px solid var(--line)}.foot{display:flex;justify-content:space-between;gap:30px}.copy{border-top:1px solid var(--line);margin-top:30px;padding-top:18px;display:flex;justify-content:space-between}
 .cart{position:fixed;right:20px;bottom:20px;z-index:30;background:white;color:black;border:0;padding:14px 18px;cursor:pointer;text-transform:uppercase;letter-spacing:.12em;font-size:10px;box-shadow:0 8px 30px #0008}.cart span{font-weight:bold;margin-left:7px}
@@ -70,8 +70,13 @@ document.write(products.map((p,i)=>`<article class="card"><div class="photo"><im
 </div></div></section>
 
 <section id="atelier"><div class="wrap story">
-<div><img src="set-elegant-all-black.webp" alt="ANCA COSTIL — atelier și colecție"></div>
-<div class="story-copy"><div class="kicker">Atelier cu tradiție</div><h2>DETALIILE FAC DIFERENȚA</h2><p>ANCA COSTIL este un atelier în care croitoria se întâlnește cu estetica contemporană. Fiecare piesă este gândită cu atenție la croială, material și finisaje.</p><p>Vom înlocui ulterior acest text cu povestea reală a atelierului.</p><a class="btn" href="#contact">Contactează-ne →</a></div>
+<div class="presentation-video">
+<video controls playsinline preload="metadata" aria-label="Prezentare ANCA COSTIL">
+<source src="prezentare-anca-costil.mp4" type="video/mp4">
+Browserul tău nu poate reda acest videoclip.
+</video>
+</div>
+<div class="story-copy"><div class="kicker">Atelier cu tradiție</div><h2>DETALIILE FAC DIFERENȚA</h2><p>ANCA COSTIL este un atelier în care croitoria se întâlnește cu estetica contemporană. Fiecare piesă este gândită cu atenție la croială, material și finisaje.</p><p>Eleganța se vede în fiecare detaliu.</p><a class="btn" href="#contact">Contactează-ne →</a></div>
 </div></section>
 
 <section class="cta" id="contact"><div class="wrap"><div class="kicker">ANCA COSTIL</div><h2>Eleganța se croiește pe tine.</h2><p style="color:#999">Comenzile vor putea fi trimise direct pe WhatsApp după alegerea produselor și a mărimilor.</p><a class="btn" href="#" onclick="checkout();return false">Comandă pe WhatsApp →</a></div></section>
