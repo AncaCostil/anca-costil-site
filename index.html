@@ -313,7 +313,14 @@ function checkout(){
   mesaj+="Șold: "+sold+"\n";
   mesaj+="Lungime: "+lungime+"\n";
   mesaj+="Observații: "+observatii;
-
+mesaj+="\n\nDATE PENTRU LIVRARE:\n";
+mesaj+="Nume și prenume: "+(prompt("Nume și prenume:")||"")+"\n";
+mesaj+="Județ: "+(prompt("Județ:")||"")+"\n";
+mesaj+="Oraș / Localitate: "+(prompt("Oraș / Localitate:")||"")+"\n";
+mesaj+="Stradă: "+(prompt("Stradă:")||"")+"\n";
+mesaj+="Numărul străzii / Numărul imobilului: "+(prompt("Numărul străzii / Numărul imobilului:")||"")+"\n";
+mesaj+="Cod poștal: "+(prompt("Cod poștal:")||"")+"\n";
+mesaj+="Telefon de contact: "+(prompt("Telefon de contact:")||"")+"\n";
   window.open("https://wa.me/40772270839?text="+encodeURIComponent(mesaj),"_blank");
 }
 </script>
