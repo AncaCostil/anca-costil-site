@@ -290,9 +290,31 @@ function add(i){
  document.getElementById("count").textContent=CART.length;
 }
 function checkout(){
- if(!CART.length){alert("Coșul este gol. Alege un produs și o mărime.");return}
- alert("Comanda este pregătită. În pasul următor adăugăm numărul WhatsApp al firmei.");
+  if(!CART.length){
+    alert("Coșul este gol. Alege mai întâi un produs.");
+    return;
+  }
+
+  const bust=prompt("Bust (cm):") || "Nespecificat";
+  const talie=prompt("Talie (cm):") || "Nespecificat";
+  const sold=prompt("Șold (cm):") || "Nespecificat";
+  const lungime=prompt("Lungime (cm):") || "Nespecificat";
+  const observatii=prompt("Observații / Cerințe speciale:") || "Niciuna";
+
+  let mesaj="Bună ziua! Doresc să comand de la ANCA COSTIL:\n\n";
+
+  CART.forEach((produs,i)=>{
+    mesaj+=(i+1)+". "+produs.name+" - Mărimea: "+produs.size+"\n";
+  });
+
+  mesaj+="\nMĂSURĂTORI:\n";
+  mesaj+="Bust: "+bust+"\n";
+  mesaj+="Talie: "+talie+"\n";
+  mesaj+="Șold: "+sold+"\n";
+  mesaj+="Lungime: "+lungime+"\n";
+  mesaj+="Observații: "+observatii;
+
+  window.open("https://wa.me/40721059533?text="+encodeURIComponent(mesaj),"_blank");
 }
-</script>
 </body>
 </html>
