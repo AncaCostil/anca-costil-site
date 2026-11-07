@@ -283,7 +283,7 @@ renderProducts();
 
 <script>
 const CART=[];
-function add(i){
+window.add = function(i){
  const size=document.getElementById("s"+i).value;
  if(!size){alert("Alege mai întâi mărimea.");return}
  CART.push({name:products[i][0],size:size});
