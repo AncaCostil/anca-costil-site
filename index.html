@@ -299,32 +299,92 @@ function checkout(){
     return;
   }
 
-  const bust=prompt("Bust (cm):") || "Nespecificat";
-  const talie=prompt("Talie (cm):") || "Nespecificat";
-  const sold=prompt("Șold (cm):") || "Nespecificat";
-  const lungime=prompt("Lungime (cm):") || "Nespecificat";
-  const observatii=prompt("Observații / Cerințe speciale:") || "Niciuna";
+  let modal=document.getElementById("orderModal");
 
-  let mesaj="Bună ziua! Doresc să comand de la ANCA COSTIL:\n\n";
+  if(!modal){
+    modal=document.createElement("div");
+    modal.id="orderModal";
+    modal.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99999;overflow:auto;padding:20px;color:white;font-family:Arial;";
+    document.body.appendChild(modal);
+  }
 
-  CART.forEach((produs,i)=>{
-    mesaj+=(i+1)+". "+produs.name+" - Mărimea: "+produs.size+"\n";
+  modal.innerHTML=`
+    <div style="max-width:520px;margin:25px auto;background:#111;padding:22px;border:1px solid #c4a06a;">
+      <h2 style="color:#c4a06a;text-align:center;">COMANDA TA</h2>
+      <div id="orderProducts" style="line-height:1.8;margin-bottom:20px;"></div>
+
+      <label>Bust (cm)</label>
+      <input id="obust" style="width:100%;padding:12px;margin:6px 0 14px;">
+
+      <label>Talie (cm)</label>
+      <input id="otalie" style="width:100%;padding:12px;margin:6px 0 14px;">
+
+      <label>Șold (cm)</label>
+      <input id="osold" style="width:100%;padding:12px;margin:6px 0 14px;">
+
+      <label>Lungime (cm)</label>
+      <input id="olungime" style="width:100%;padding:12px;margin:6px 0 14px;">
+
+      <label>Observații</label>
+      <textarea id="oobs" style="width:100%;padding:12px;margin:6px 0 14px;"></textarea>
+
+      <h3 style="color:#c4a06a;">DATE PENTRU LIVRARE</h3>
+
+      <div id="deliveryFields"></div>
+
+      <button onclick="sendOrder()" style="width:100%;padding:15px;background:#c4a06a;color:#000;border:0;margin-top:15px;font-weight:bold;">TRIMITE COMANDA</button>
+
+      <button onclick="document.getElementById('orderModal').remove()" style="width:100%;padding:13px;margin-top:10px;background:#333;color:white;border:1px solid #777;">ÎNAPOI LA CUMPĂRĂTURI</button>
+
+      <button onclick="if(confirm('Sigur dorești să anulezi comanda și să golești coșul?')){CART.length=0;document.getElementById('count').textContent=0;document.getElementById('orderModal').remove();}" style="width:100%;padding:13px;margin-top:10px;background:#600;color:white;border:0;">ANULEAZĂ COMANDA</button>
+    </div>
+  `;
+
+  document.getElementById("orderProducts").textContent=
+    CART.map((p,i)=>(i+1)+". "+p.name+" - Mărimea: "+p.size).join("\n");
+
+  document.getElementById("orderProducts").style.whiteSpace="pre-line";
+
+  const fields=[
+    ["onume","Nume și prenume"],
+    ["ojudet","Județ"],
+    ["ooras","Oraș / Localitate"],
+    ["ostrada","Stradă"],
+    ["onumar","Numărul străzii / Numărul imobilului"],
+    ["ocod","Cod poștal"],
+    ["otelefon","Telefon de contact"]
+  ];
+
+  document.getElementById("deliveryFields").innerHTML=fields.map(f=>
+    `<label>${f[1]}</label><input id="${f[0]}" style="width:100%;padding:12px;margin:6px 0 14px;">`
+  ).join("");
+}
+
+function sendOrder(){
+  const get=id=>document.getElementById(id).value.trim();
+
+  let mesaj="Bună ziua! Doresc să comand:\n";
+
+  CART.forEach((p,i)=>{
+    mesaj+=(i+1)+". "+p.name+" - Mărimea: "+p.size+"\n";
   });
 
   mesaj+="\nMĂSURĂTORI:\n";
-  mesaj+="Bust: "+bust+"\n";
-  mesaj+="Talie: "+talie+"\n";
-  mesaj+="Șold: "+sold+"\n";
-  mesaj+="Lungime: "+lungime+"\n";
-  mesaj+="Observații: "+observatii;
-mesaj+="\n\nDATE PENTRU LIVRARE:\n";
-mesaj+="Nume și prenume: "+(prompt("Nume și prenume:")||"")+"\n";
-mesaj+="Județ: "+(prompt("Județ:")||"")+"\n";
-mesaj+="Oraș / Localitate: "+(prompt("Oraș / Localitate:")||"")+"\n";
-mesaj+="Stradă: "+(prompt("Stradă:")||"")+"\n";
-mesaj+="Numărul străzii / Numărul imobilului: "+(prompt("Numărul străzii / Numărul imobilului:")||"")+"\n";
-mesaj+="Cod poștal: "+(prompt("Cod poștal:")||"")+"\n";
-mesaj+="Telefon de contact: "+(prompt("Telefon de contact:")||"")+"\n";
+  mesaj+="Bust: "+get("obust")+"\n";
+  mesaj+="Talie: "+get("otalie")+"\n";
+  mesaj+="Șold: "+get("osold")+"\n";
+  mesaj+="Lungime: "+get("olungime")+"\n";
+  mesaj+="Observații: "+get("oobs")+"\n";
+
+  mesaj+="\nDATE LIVRARE:\n";
+  mesaj+="Nume: "+get("onume")+"\n";
+  mesaj+="Județ: "+get("ojudet")+"\n";
+  mesaj+="Oraș: "+get("ooras")+"\n";
+  mesaj+="Stradă: "+get("ostrada")+"\n";
+  mesaj+="Număr: "+get("onumar")+"\n";
+  mesaj+="Cod poștal: "+get("ocod")+"\n";
+  mesaj+="Telefon: "+get("otelefon");
+
   window.open("https://wa.me/40721059533?text="+encodeURIComponent(mesaj),"_blank");
 }
 function toggleMenu(){
