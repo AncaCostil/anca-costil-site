@@ -189,7 +189,7 @@ footer{background:#f1ede5;color:#24211e;padding:55px 0 30px}
 
 <script>
 const products=[
-["Rochie Red Elegance","rochie-red-elegance-1.jpg","rochii",500,["XS","S","M","L","XL","XXL"],["rochie-red-elegance-1.jpg","rochie-red-elegance-2.jpg"]]
+["Rochie Red Elegance","rochie-red-elegance-1.jpg","rochii",450,["XS","S","M","L","XL","XXL"],["rochie-red-elegance-1.jpg","rochie-red-elegance-2.jpg"],"Rochie lungă tip sirenă din lycra modelatoare, elastică în 4 direcții. Decolteu elegant, mâneci lungi evazate și detaliu floral. Ideală pentru evenimente speciale."]
 ];
 function renderProducts(category="toate"){
  const grid=document.getElementById("productGrid");
@@ -200,7 +200,19 @@ function renderProducts(category="toate"){
  }
  grid.innerHTML=list.map(p=>{
    const i=products.indexOf(p);
-   return `<article class="card"><div class="photo"><img src="${p[1]}" alt="${p[0]}"></div><h3>${p[0]}</h3><div class="price">200 RON</div><select id="s${i}"><option value="">Alege mărimea</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select><button class="add" onclick="add(${i})">Adaugă în coș</button></article>`;
+   return `<article class="card">
+<div class="photo">
+${(p[5]||[p[1]]).filter(Boolean).slice(0,3).map(src=>`<img src="${src}" alt="${p[0]}">`).join("")}
+</div>
+<h3>${p[0]}</h3>
+<p>${p[6]||""}</p>
+<div class="price">${p[3]} RON</div>
+<select id="s${i}">
+<option value="">Alege mărimea</option>
+${p[4].map(size=>`<option>${size}</option>`).join("")}
+</select>
+<button class="add" onclick="add(${i})">Adaugă în coș</button>
+</article>`;
  }).join("");
 }
 function filterProducts(category,button){
