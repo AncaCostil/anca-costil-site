@@ -144,8 +144,12 @@ footer{background:#f1ede5;color:#24211e;padding:55px 0 30px}
     <nav>
       <a href="#acasa">Acasă</a><a href="#colectie">Colecții</a><a href="#atelier">Atelier</a><a href="#contact">Contact</a>
     </nav>
-    <div class="mobile" aria-label="Meniu"><span></span><span></span><span></span></div>
-  </div>
+    <button class="mobile" type="button" aria-label="Meniu" onclick="toggleMenu()">☰</button>
+ <div id="mobileMenu" style="display:none;position:absolute;right:5%;top:90px;background:#070706;border:1px solid #c4a06a;padding:20px;z-index:999">
+<a href="#colectie" onclick="toggleMenu()">Galerie</a><br><br>
+<a href="#atelier" onclick="toggleMenu()">Despre noi</a><br><br>
+<a href="#contact" onclick="toggleMenu()">Contact</a>
+ </div> </div>
 </header>
 
 <main id="acasa">
@@ -323,6 +327,9 @@ mesaj+="Cod poștal: "+(prompt("Cod poștal:")||"")+"\n";
 mesaj+="Telefon de contact: "+(prompt("Telefon de contact:")||"")+"\n";
   window.open("https://wa.me/40721059533?text="+encodeURIComponent(mesaj),"_blank");
 }
-</script>
+function toggleMenu(){
+  const menu=document.getElementById("mobileMenu");
+  menu.style.display=menu.style.display==="block"?"none":"block";
+  }</script>
 </body>
 </html>
