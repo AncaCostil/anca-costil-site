@@ -203,7 +203,7 @@ function renderProducts(category="toate"){
    const i=products.indexOf(p);
    return `<article class="card">
 <div class="photo">
-${(p[5]||[p[1]]).filter(Boolean).slice(0,3).map(src=>`<img src="${src}" alt="${p[0]}">`).join("")}
+${(p[5]||[p[1]]).filter(Boolean).slice(0,3).map((src,j)=>'<img src="'+src+'" alt="'+p[0]+'" onclick="openGallery('+i+','+j+')" style="cursor:zoom-in">').join("")}
 </div>
 <h3>${p[0]}</h3>
 <p>${p[6]||""}</p>
@@ -222,7 +222,46 @@ function filterProducts(category,button){
 }
 renderProducts();
 </script>
+<script>
+let galleryIndex=0;
+let galleryPhoto=0;
 
+window.openGallery=function(i,j){
+  galleryIndex=i;
+  galleryPhoto=j;
+  showGalleryPhoto();
+  document.getElementById("photoViewer").style.display="flex";
+};
+
+function showGalleryPhoto(){
+  const photos=(products[galleryIndex][5]||[products[galleryIndex][1]]).filter(Boolean);
+  galleryPhoto=(galleryPhoto+photos.length)%photos.length;
+  document.getElementById("galleryImage").src=photos[galleryPhoto];
+  document.getElementById("galleryCount").textContent=(galleryPhoto+1)+" / "+photos.length;
+}
+
+function changeGalleryPhoto(direction){
+  galleryPhoto+=direction;
+  showGalleryPhoto();
+}
+
+document.body.insertAdjacentHTML("beforeend",`
+<div id="photoViewer" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:99999;align-items:center;justify-content:center;flex-direction:column;">
+<button onclick="document.getElementById('photoViewer').style.display='none'" style="position:absolute;top:20px;right:20px;color:white;background:none;border:0;font-size:38px;">×</button>
+<button onclick="changeGalleryPhoto(-1)" style="position:absolute;left:10px;color:white;background:none;border:0;font-size:38px;">‹</button>
+<img id="galleryImage" style="max-width:85%;max-height:80vh;object-fit:contain;">
+<button onclick="changeGalleryPhoto(1)" style="position:absolute;right:10px;color:white;background:none;border:0;font-size:38px;">›</button>
+<div id="galleryCount" style="color:white;padding:15px;"></div>
+</div>
+`);
+
+let touchStart=0;
+document.getElementById("photoViewer").addEventListener("touchstart",e=>touchStart=e.touches[0].clientX);
+document.getElementById("photoViewer").addEventListener("touchend",e=>{
+  let distance=e.changedTouches[0].clientX-touchStart;
+  if(Math.abs(distance)>50) changeGalleryPhoto(distance<0?1:-1);
+});
+  </script>                                          </script>
 <section class="statement">
   <div class="wrap inner">
     <div class="kicker">Atelier cu tradiție</div>
