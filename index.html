@@ -208,7 +208,14 @@ ${(p[5]||[p[1]]).filter(Boolean).slice(0,3).map((src,j)=>'<img src="'+src+'" alt
 </div>
 <h3>${p[0]}</h3>
 <p>${p[6]||""}</p>
-<div class="price">${p[3]} RON</div>
+<div class="price">${p[3]} RON</div><a href="ghid-marimi.png" target="_blank"
+style="display:block;text-align:center;
+padding:11px;margin:12px 0;
+border:1px solid #c4a06a;color:#d9c09a;
+text-decoration:none;border-radius:6px;
+font-weight:bold;letter-spacing:1px;">
+GHID DE MĂRIMI
+</a>
 <select id="s${i}">
 <option value="">Alege mărimea</option>
 ${p[4].map(size=>`<option>${size}</option>`).join("")}
