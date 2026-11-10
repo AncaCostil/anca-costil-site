@@ -173,6 +173,140 @@ footer{background:#f1ede5;color:#24211e;padding:55px 0 30px}
   </div>
 </section>
 
+<style>
+.custom-order{
+  background:#0d0c0b;color:#f4ead9;
+  text-align:center;padding:38px 16px;
+  border-top:1px solid #c4a06a;
+  border-bottom:1px solid #c4a06a;
+}
+.custom-order h2{
+  font:26px Georgia,serif;
+  letter-spacing:1.5px;margin:0 0 10px;
+}
+.custom-order p{
+  color:#d9c09a;font:italic 17px Georgia,serif;
+  margin:0 0 19px;
+}
+.custom-order button{
+  background:transparent;border:1px solid #c4a06a;
+  color:#e5c58e;padding:9px 15px;
+  font-size:12px;letter-spacing:.7px;
+  cursor:pointer;
+}
+.custom-modal{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:#000d;padding:15px;
+  align-items:center;justify-content:center;
+}
+.custom-box{
+  background:#11100e;border:1px solid #c4a06a;
+  color:#f4ead9;width:100%;max-width:440px;
+  max-height:90vh;overflow:auto;
+  padding:24px 18px;text-align:center;
+}
+.custom-box h2{
+  font:27px Georgia,serif;color:#e5c58e;
+}
+.custom-box input,.custom-box textarea{
+  width:100%;box-sizing:border-box;padding:12px;
+  margin:7px 0;background:#1b1916;
+  border:1px solid #887451;color:white;
+  font:14px Arial;
+}
+.custom-box textarea{min-height:85px}
+.custom-box .close{
+  float:right;background:none;border:0;
+  color:#e5c58e;font-size:25px;
+}
+.custom-box .send{
+  background:#c4a06a;color:#17120b;
+  width:100%;margin-top:14px;
+  font-weight:bold;padding:13px;
+}
+.custom-box small{color:#d9c09a}
+</style>
+
+<div class="custom-order">
+  <h2>CREAȚII VESTIMENTARE LA COMANDĂ</h2>
+  <p>Eleganță croită special pentru tine.</p>
+  <button type="button" onclick="document.getElementById('customModal').style.display='flex'">
+    SOLICITĂ O CREAȚIE PERSONALIZATĂ →
+  </button>
+</div>
+
+<div class="custom-modal" id="customModal">
+  <div class="custom-box">
+    <button class="close" type="button"
+      onclick="document.getElementById('customModal').style.display='none'">×</button>
+
+    <h2>Creație vestimentară la comandă</h2>
+    <p>Spune-ne ce îți dorești, iar noi transformăm ideea ta într-o ținută unică.</p>
+
+    <form onsubmit="return sendCustomOrder()">
+      <input id="customName" placeholder="Nume și prenume *" required>
+      <input id="customPhone" type="tel" placeholder="Număr de telefon *" required>
+
+      <textarea id="customDescription"
+        placeholder="Descrie creația dorită: model, stil, ocazie... *"
+        required></textarea>
+
+      <p>Fotografii de inspirație</p>
+      <input id="customPhotos" type="file" accept="image/*" multiple>
+      <small id="photoNames">Poți selecta maximum 5 fotografii.</small>
+
+      <textarea id="customNotes"
+        placeholder="Alte observații (opțional)"></textarea>
+
+      <small>
+        Fotografiile se atașează direct în conversația WhatsApp.
+      </small>
+
+      <button class="send" type="submit">
+        CONTINUĂ PE WHATSAPP
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+document.getElementById('customPhotos').addEventListener('change',function(){
+  if(this.files.length>5){
+    this.value='';
+    document.getElementById('photoNames').textContent='Maximum 5 fotografii.';
+    return;
+  }
+  document.getElementById('photoNames').textContent=
+    this.files.length ? 'Ai selectat '+this.files.length+' fotografii.' :
+    'Poți selecta maximum 5 fotografii.';
+});
+
+function sendCustomOrder(){
+  const name=document.getElementById('customName').value.trim();
+  const phone=document.getElementById('customPhone').value.trim();
+  const description=document.getElementById('customDescription').value.trim();
+  const notes=document.getElementById('customNotes').value.trim();
+  const photos=document.getElementById('customPhotos').files;
+
+  if(photos.length>5){
+    alert('Maximum 5 fotografii.');
+    return false;
+  }
+
+  let message='Bună ziua! Doresc o creație vestimentară personalizată ANCA COSTIL.\n';
+  message+='Nume: '+name+'\nTelefon: '+phone;
+  message+='\nDescriere: '+description;
+  if(notes) message+='\nObservații: '+notes;
+  if(photos.length) message+='\nVoi atașa '+photos.length+' fotografii de inspirație.';
+
+  window.open(
+    'https://wa.me/40721059533?text='+encodeURIComponent(message),
+    '_blank'
+  );
+  return false;
+}
+</script>
+
 <section class="collection" id="colectie">
   <div class="wrap">
     <div class="center">
